@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Director — Erth Inventions</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Syne:wght@400;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --teal-deep:#0b2827;
+  --gold:#c9a84c;
+  --gold-dim:#8a6f2e;
+  --gold-bright:#e8c96a;
+  --cream:#f5ead8;
+  --ink:#080f0e;
+  --paper:#f0e4cc;
+  --paper-dark:#e0d0b0;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--ink);
+  color:var(--cream);
+  font-family:'Cormorant Garamond',serif;
+  overflow-x:hidden;
+  cursor:none;
+  position:relative;
+}
+.cursor{width:8px;height:8px;background:var(--gold);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference;}
+.cursor-ring{width:28px;height:28px;border:1px solid var(--gold);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:transform 0.16s ease,width 0.2s,height 0.2s;}
+.page-container{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:80px 20px;
+  text-align:center;
+  position:relative;
+  z-index:2;
+}
+.role-category{font-family:'Space Mono',monospace;font-size:12px;letter-spacing:0.25em;color:var(--gold);text-transform:uppercase;margin-bottom:8px;}
+.role-title{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(32px,6vw,72px);color:var(--cream);margin-bottom:24px;}
+.role-title .gold{color:var(--gold);}
+.role-desc{font-family:'Cormorant Garamond',serif;font-size:clamp(17px,2.4vw,22px);color:rgba(245,234,216,0.7);line-height:1.65;max-width:600px;margin-bottom:48px;}
+.role-notes{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.25em;color:var(--gold);text-transform:uppercase;}
+a.cta-btn{background:var(--gold);color:var(--ink);padding:13px 36px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:0.25em;text-transform:uppercase;font-weight:700;text-decoration:none;transition:all 0.2s;display:inline-block;margin-top:24px;}
+a.cta-btn:hover{background:var(--gold-bright);transform:translateY(-2px);box-shadow:0 8px 24px rgba(201,168,76,0.25);}
+
+/* Background gradient + subtle noise */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:0;
+  background:radial-gradient(ellipse 70% 60% at 50% 40%,#0e3030 0%,transparent 70%),radial-gradient(ellipse 40% 30% at 20% 70%,#0a2020 0%,transparent 60%),var(--ink);
+}
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:1;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+  opacity:0.4;
+  pointer-events:none;
+}
+
+/* Footer styling */
+footer{
+  font-family:'Space Mono',monospace;
+  font-size:10px;
+  letter-spacing:0.25em;
+  text-transform:uppercase;
+  color:var(--gold);
+  text-align:center;
+  margin-top:60px;
+  padding:20px 10px;
+  border-top:1px solid rgba(201,168,76,0.2);
+  z-index:2;
+  position:relative;
+}
+footer a{
+  color:var(--gold);
+  text-decoration:none;
+  margin:0 8px;
+  transition:color 0.2s;
+}
+footer a:hover{
+  color:var(--gold-bright);
+}
+</style>
+</head>
+<body>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<div class="page-container">
+  <div class="role-category">Crew — Pre-Production</div>
+  <div class="role-title">Director</div>
+  <div class="role-desc">
+   The Director holds the entire film together. Not from a distance, but at the center of it. You are on set, in the room, in every decision that shapes the story. You understand people as much as you understand scenes. You guide actors, align departments, and make sure every frame means something. This is not just vision — it is execution, leadership, and instinct under pressure.
+  </div>
+  <div class="role-notes">Special Abilities: Leads with clarity and authority, translates vision into action, directs performance and tone, makes decisive creative calls under pressure.</div>
+  <a class="cta-btn" href="https://forms.gle/baFVBsXmenHJPwit5" target="_blank">Claim your role</a>
+</div>
+
+<footer>
+  &copy; 2026 Erth Inventions • <a href="index.html">Main Page</a> • <a href="erso.html">Erso Supund (Role)</a> • <a href="terms.html">Terms & Agreement</a>
+</footer>
+
+<script>
+const cursor = document.getElementById('cursor');
+const cursorRing = document.getElementById('cursorRing');
+
+document.addEventListener('mousemove', (e) => {
+  const { clientX: x, clientY: y } = e;
+  cursor.style.transform = `translate(${x}px, ${y}px)`;
+  cursorRing.style.transform = `translate(${x}px, ${y}px)`;
+});
+</script>
+</body>
+</html>
